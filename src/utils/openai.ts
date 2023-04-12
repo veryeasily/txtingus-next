@@ -2,7 +2,7 @@
 
 import Message from "@/models/message"
 import Prompt from "@/models/prompt"
-import { Configuration, CreateChatCompletionRequest, OpenAIApi } from "openai"
+import { Configuration, OpenAIApi } from "openai"
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -13,7 +13,7 @@ const openai = new OpenAIApi(configuration)
 export async function chatCompletion(prompt: Prompt, messages: Message[]) {
   const messagePrompts = messages.map((message) => {
     return {
-      role: message.role as "user" | "assistant",
+      role: message.role,
       content: message.content,
     }
   })

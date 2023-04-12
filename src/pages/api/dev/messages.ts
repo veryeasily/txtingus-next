@@ -15,13 +15,10 @@ const openai = new OpenAIApi(
 
 function buildMessagesParam(messages: Message[], prompt: Prompt) {
   const prevMessages = messages.map((m) => ({
-    role: m.role as "user" | "assistant",
+    role: m.role,
     content: m.content,
   }))
-  return [
-    { role: "system" as const, content: prompt.content },
-    ...prevMessages,
-  ]
+  return [{ role: "system" as const, content: prompt.content }, ...prevMessages]
 }
 
 export default async function handler(
@@ -35,7 +32,7 @@ export default async function handler(
 
   const prompt = await Prompt.currentPrompt()
   await Message.query().insert({ role: "user", content })
-  const messages = await Message.query();
+  const messages = await Message.query()
   const resp = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: buildMessagesParam(messages, prompt),
@@ -54,5 +51,6 @@ export default async function handler(
       .json({ error: { message: "No text in OpenAI response" } })
   }
 
+  console.log("got back response from OpenAI!", text)
   res.status(200).json({ data: { text } })
 }

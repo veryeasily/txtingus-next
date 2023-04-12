@@ -2,7 +2,7 @@ import Record from "./record"
 
 class Message extends Record {
   id!: number
-  role!: string
+  role!: "assistant" | "system" | "user"
   content!: string
   created_at!: Date
   updated_at!: Date
