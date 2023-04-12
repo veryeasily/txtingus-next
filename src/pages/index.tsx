@@ -12,7 +12,7 @@ export const getServerSideProps = async function () {
   assert(prompt, "No prompt found")
   return {
     props: {
-      messages,
+      messages: messages.map((message) => message.toJSON()),
       prompt: prompt.toJSON(),
     },
   }
