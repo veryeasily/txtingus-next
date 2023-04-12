@@ -52,5 +52,6 @@ export default async function handler(
   }
 
   console.log("got back response from OpenAI!", text)
+  await Message.query().insert({ role: "assistant", content: text })
   res.status(200).json({ data: { text } })
 }
