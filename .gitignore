@@ -27,6 +27,9 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# docker-compose stores secrets in its .env
+/docker/.env
+
 # vercel
 .vercel
 
