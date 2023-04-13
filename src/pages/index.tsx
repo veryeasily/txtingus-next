@@ -1,19 +1,20 @@
 import Image from "next/image"
 import { Inter } from "next/font/google"
 import assert from "node:assert"
-import Message from "@/models/message"
-import Prompt from "@/models/prompt"
+import { db } from "@/utils/db";
 import { InferGetServerSidePropsType } from "next"
 import { useState } from "react"
+import { Prompt } from "@prisma/client";
+import superjson from "superjson";
 
 export const getServerSideProps = async function () {
-  const messages = await Message.query()
-  const prompt = await Prompt.query().first()
+  const messages = await db.message.findMany();
+  const prompt = await db.prompt.findFirst() as Prompt;
   assert(prompt, "No prompt found")
   return {
     props: {
-      messages: messages.map((message) => message.toJSON()),
-      prompt: prompt.toJSON(),
+      messages,
+      prompt,
     },
   }
 }
@@ -44,8 +45,8 @@ export default function Home({
       <div className="flex flex-col">
         {messages.map((message) => {
           return (
-            <div key={message.id}>
-              <div>{message.role}</div>
+            <div key={message.id} className="flex">
+              <div className="px-8">{message.role}</div>
               <div>{message.content}</div>
             </div>
           )
