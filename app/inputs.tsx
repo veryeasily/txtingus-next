@@ -1,9 +1,15 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { startTransition, useState } from "react";
 
-export default function PromptControls() {
+interface PromptControlsProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export default function PromptControls({
+  className,
+  ...rest
+}: PromptControlsProps) {
   const router = useRouter();
   const [message, setMessage] = useState("");
 
@@ -16,14 +22,14 @@ export default function PromptControls() {
       body: JSON.stringify({ content: message }),
     });
 
-    setMessage("")
+    setMessage("");
     startTransition(() => {
       router.refresh();
     });
   };
 
   return (
-    <div className="flex flex-col text-red-400">
+    <div className={cn("flex flex-col text-red-400", className)} {...rest}>
       <input
         type="text"
         value={message}

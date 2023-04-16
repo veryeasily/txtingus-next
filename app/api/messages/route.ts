@@ -1,5 +1,5 @@
 import { OpenAIApi, Configuration } from "openai"
-import { db } from "@/utils/db"
+import { db } from "@/lib/db"
 import { Message, Prompt } from "@prisma/client"
 import { NextResponse } from "next/server"
 

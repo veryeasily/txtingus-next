@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { Inter } from "next/font/google"
 import assert from "node:assert"
-import { db } from "@/utils/db";
+import { db } from "@/lib/db";
 import { InferGetServerSidePropsType } from "next"
 import { useState } from "react"
 import { Prompt } from "@prisma/client";
