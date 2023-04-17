@@ -23,16 +23,17 @@ export default function Table({ messages, className, ...rest }: TableProps) {
     >
       <TableContainer component={Paper}>
         <BaseTable sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
+          <TableHead className="bg-blue-950">
             <TableRow>
               <TableCell>ID</TableCell>
-              <TableCell align="right">Role</TableCell>
-              <TableCell align="right">Message</TableCell>
+              <TableCell align="left">Role</TableCell>
+              <TableCell align="left">Message</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody className="bg-blue-900">
             {messages.map((message) => (
               <TableRow
+                hover
                 key={message.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 onClick={() => {
@@ -40,10 +41,11 @@ export default function Table({ messages, className, ...rest }: TableProps) {
                 }}
               >
                 <TableCell component="th" scope="row">
-                  {message.id}
+                  {" "}
+                  {message.id}{" "}
                 </TableCell>
-                <TableCell align="right">{message.role}</TableCell>
-                <TableCell align="right">{message.content}</TableCell>
+                <TableCell align="left">{message.role}</TableCell>
+                <TableCell align="left">{message.content}</TableCell>
               </TableRow>
             ))}
           </TableBody>

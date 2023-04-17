@@ -21,7 +21,6 @@ export default function PromptControls({
       },
       body: JSON.stringify({ content: message }),
     });
-
     setMessage("");
     startTransition(() => {
       router.refresh();
@@ -29,14 +28,14 @@ export default function PromptControls({
   };
 
   return (
-    <div className={cn("flex flex-col text-red-400", className)} {...rest}>
+    <div className={cn("flex text-red-400 border-2 border-white p-4", className)} {...rest}>
       <input
         type="text"
         value={message}
         className="px-4 py-2"
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button onClick={handleClick}>Submit</button>
+      <button className="p-2 ml-4 border-2 border-white font-bold" onClick={handleClick}>Submit</button>
     </div>
   );
 }
