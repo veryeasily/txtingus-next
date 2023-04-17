@@ -9,18 +9,22 @@ export default async function Home() {
 
   return (
     <main className="flex min-h-screen max-w-3xl mx-auto">
-      <section className="flex-1 p-8">
-        <div className="flex flex-col items-center justify-start space-y-10">
-          <h1 className="py-6 text-5xl font-black">@dingus</h1>
-          <div className="w-full pb-6">
-            <Table messages={messages} data-superjson />
+      <section className="flex items-center flex-1 p-8">
+        <div className="flex flex-col justify-start flex-1 space-y-4">
+          <section className="flex items-center flex-col pb-12">
+            <h1 className="pb-10 text-5xl font-black">@dingus</h1>
+            <div className="w-full">
+              <Table messages={messages} data-superjson />
+            </div>
+          </section>
+          <div className="flex flex-col space-y-4">
+            {prompt && (
+              <h2 className="text-2xl">
+                <span className="font-bold">Prompt:</span> {prompt.content}
+              </h2>
+            )}
+            <PromptControls className="w-full" />
           </div>
-          {prompt && (
-            <h2 className="text-3xl">
-              <span className="font-bold">Prompt:</span> {prompt.content}
-            </h2>
-          )}
-          <PromptControls className="w-full" />
         </div>
       </section>
     </main>
