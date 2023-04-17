@@ -32,10 +32,10 @@ export default function PromptControls({
       <input
         type="text"
         value={message}
-        className="px-4 py-2"
+        className="px-4 py-2 flex-1"
         onChange={(e) => setMessage(e.target.value)}
       />
-      <button className="p-2 ml-4 border-2 border-white font-bold" onClick={handleClick}>Submit</button>
+      <button className="p-2 px-6 ml-4 border-2 border-white font-bold" onClick={handleClick}>Submit</button>
     </div>
   );
 }
