@@ -21,75 +21,43 @@ export default function Table({ messages, className, ...rest }: TableProps) {
       className={cn("flex flex-col", className)}
       {...rest}
     >
-      <TableContainer component={Paper}>
-        <BaseTable sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead className="bg-blue-950">
-            <TableRow>
-              <TableCell>ID</TableCell>
-              <TableCell align="left">Role</TableCell>
-              <TableCell align="left">Message</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody className="bg-blue-900">
+      <div className="relative overflow-x-auto">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                ID
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Role
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Message
+              </th>
+            </tr>
+          </thead>
+          <tbody>
             {messages.map((message) => (
-              <TableRow
-                hover
+              <tr
                 key={message.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
                 onClick={() => {
                   navigator.clipboard.writeText(message.content);
                 }}
               >
-                <TableCell component="th" scope="row">
-                  {" "}
-                  {message.id}{" "}
-                </TableCell>
-                <TableCell align="left">{message.role}</TableCell>
-                <TableCell align="left">{message.content}</TableCell>
-              </TableRow>
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                >
+                  {message.id}
+                </th>
+                <td className="px-6 py-4">{message.role}</td>
+                <td className="px-6 py-4">{message.content}</td>
+              </tr>
             ))}
-          </TableBody>
-        </BaseTable>
-      </TableContainer>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
-
-// export default function Table({ messages, className, ...rest }: TableProps) {
-//   return (
-//     <div
-//       data-component="table"
-//       className={cn("flex flex-col", className)}
-//       {...rest}
-//     >
-//       <TableContainer component={Paper}>
-//         <BaseTable sx={{ minWidth: 650 }} aria-label="simple table">
-//           <TableHead>
-//             <TableRow>
-//               <TableCell>ID</TableCell>
-//               <TableCell align="right">Role</TableCell>
-//               <TableCell align="right">Message</TableCell>
-//             </TableRow>
-//           </TableHead>
-//           <TableBody>
-//             {messages.map((message) => (
-//               <TableRow
-//                 key={message.id}
-//                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-//                 onClick={() => {
-//                   navigator.clipboard.writeText(message.content);
-//                 }}
-//               >
-//                 <TableCell component="th" scope="row">
-//                   {message.id}
-//                 </TableCell>
-//                 <TableCell align="right">{message.role}</TableCell>
-//                 <TableCell align="right">{message.content}</TableCell>
-//               </TableRow>
-//             ))}
-//           </TableBody>
-//         </BaseTable>
-//       </TableContainer>
-//     </div>
-//   );
-// }
