@@ -1,14 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import BaseTable from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { Message } from "@prisma/client";
+
+const roleLookup = {
+  system: "System",
+  user: "User",
+  assistant: "Assistant",
+}
 
 interface TableProps extends React.HTMLAttributes<HTMLDivElement> {
   messages: Message[];
@@ -37,24 +36,27 @@ export default function Table({ messages, className, ...rest }: TableProps) {
             </tr>
           </thead>
           <tbody>
-            {messages.map((message) => (
-              <tr
-                key={message.id}
-                className="bg-white border-b last:border-b-0 dark:bg-gray-800 dark:border-white"
-                onClick={() => {
-                  navigator.clipboard.writeText(message.content);
-                }}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
+            {messages.map((message) => {
+              const role = message.role as keyof typeof roleLookup;
+              return (
+                <tr
+                  key={message.id}
+                  className="bg-white border-b last:border-b-0 dark:bg-gray-800 dark:border-white"
+                  onClick={() => {
+                    navigator.clipboard.writeText(message.content);
+                  } }
                 >
-                  {message.id}
-                </th>
-                <td className="px-6 py-4">{message.role}</td>
-                <td className="px-6 py-4">{message.content}</td>
-              </tr>
-            ))}
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-white whitespace-nowrap dark:text-white"
+                  >
+                    {message.id}
+                  </th>
+                  <td className="px-6 py-4">{roleLookup[role]}</td>
+                  <td className="px-6 py-4">{message.content}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
