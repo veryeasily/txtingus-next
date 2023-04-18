@@ -16,7 +16,6 @@ export default function MaterialUiSetup({
 }) {
   return (
     <ThemeProvider theme={darkTheme}>
-      <CssBaseline />
       {children}
     </ThemeProvider>
   );

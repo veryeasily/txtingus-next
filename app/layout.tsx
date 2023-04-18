@@ -18,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-neutral-900">
+      <body className="bg-neutral-900 py-32 px-8">
         <MaterialUiSetup>{children}</MaterialUiSetup>
       </body>
     </html>
