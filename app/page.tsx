@@ -14,11 +14,17 @@ export default async function Home() {
         <div className="flex flex-col justify-start flex-1 space-y-4">
           <section className="flex items-center flex-col pb-12 space-y-8">
             <h1 className="text-5xl font-black">@dingus</h1>
-            <div className="w-full">
-              <PromptTable prompts={prompts} />
-            </div>
-            <div className="w-full">
-              <MessageTable messages={messages} />
+            <div className="flex w-full space-x-4">
+              <PromptTable
+                flex={1}
+                prompts={prompts}
+                dataGridProps={{ className: "bg-red-500 bg-opacity-10" }}
+              />
+              <MessageTable
+                flex={1}
+                messages={messages}
+                dataGridProps={{ className: "bg-blue-500 bg-opacity-10" }}
+              />
             </div>
           </section>
           <div className="flex flex-col space-y-4">

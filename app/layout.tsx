@@ -18,8 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-neutral-900 py-32 px-8">
-        <MaterialUiSetup>{children}</MaterialUiSetup>
+      <body className="bg-neutral-900">
+        <MaterialUiSetup>
+          <div className="p-8">{children}</div>
+        </MaterialUiSetup>
       </body>
     </html>
   );

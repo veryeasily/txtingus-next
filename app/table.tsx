@@ -2,26 +2,28 @@
 
 import { Message, Prompt } from "@prisma/client";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Box, Typography } from "@mui/material";
+import { Box, BoxProps, Typography } from "@mui/material";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
+interface Props extends BoxProps {
   columns: GridColDef[];
   rows: any[];
   title?: string;
+  dataGridProps?: Partial<React.ComponentPropsWithoutRef<typeof DataGrid>>;
 }
 
-function Table({ rows, columns, title, ...rest }: Props) {
+function Table({ rows, columns, title, dataGridProps = {}, ...rest }: Props) {
   return (
-    <Box>
+    <Box {...rest}>
       {title && (
         <Typography variant="h4" component="h4" gutterBottom>
           {title}
         </Typography>
       )}
-      <Box width="100%" height={384} {...rest}>
+      <Box width="100%" height={384}>
         <DataGrid
           rows={rows}
           columns={columns}
+          pageSizeOptions={[10]}
           initialState={{
             pagination: {
               paginationModel: {
@@ -29,7 +31,7 @@ function Table({ rows, columns, title, ...rest }: Props) {
               },
             },
           }}
-          pageSizeOptions={[10]}
+          {...dataGridProps}
         />
       </Box>
     </Box>
@@ -46,7 +48,7 @@ const roleLookup = {
   assistant: "Assistant",
 };
 
-const messageColumns: GridColDef[] = [
+const messageColumns: GridColDef<Message>[] = [
   { field: "id", headerName: "ID", width: 64 },
   {
     field: "role",
@@ -58,12 +60,21 @@ const messageColumns: GridColDef[] = [
   { field: "content", headerName: "Message", flex: 1 },
 ];
 
-interface MessagesTableProps {
+interface MessagesTableProps extends Omit<Props, "columns" | "rows"> {
   messages: Message[];
+  columns?: Props["columns"];
+  rows?: Props["rows"];
 }
 
 export function MessageTable({ messages, ...rest }: MessagesTableProps) {
-  return <Table title="Messages" rows={messages} columns={messageColumns} {...rest} />;
+  return (
+    <Table
+      title="Messages"
+      rows={messages}
+      columns={messageColumns}
+      {...rest}
+    />
+  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -75,10 +86,14 @@ const promptColumns: GridColDef[] = [
   { field: "content", headerName: "Prompt" },
 ];
 
-interface PromptsTableProps {
+interface PromptsTableProps extends Omit<Props, "columns" | "rows"> {
   prompts: Prompt[];
+  rows?: Props["rows"];
+  columns?: Props["columns"];
 }
 
 export function PromptTable({ prompts, ...rest }: PromptsTableProps) {
-  return <Table title="Prompts" rows={prompts} columns={promptColumns} {...rest} />;
+  return (
+    <Table title="Prompts" rows={prompts} columns={promptColumns} {...rest} />
+  );
 }
