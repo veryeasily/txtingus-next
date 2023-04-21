@@ -5,6 +5,7 @@ import "@fontsource/roboto/700.css";
 import "./globals.css";
 
 import MaterialUiSetup from "./styles";
+import NavBar from "./nav";
 
 export const metadata = {
   title: "Create Next App",
@@ -20,7 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-neutral-900">
         <MaterialUiSetup>
-          <div className="p-8">{children}</div>
+          <div className="min-h-screen flex">
+            <NavBar />
+            <div className="flex flex-1 p-8 pl-[272px]">{children}</div>
+          </div>
         </MaterialUiSetup>
       </body>
     </html>
